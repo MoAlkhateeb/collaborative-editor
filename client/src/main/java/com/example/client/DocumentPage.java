@@ -1,3 +1,5 @@
+package com.example.client;
+
 import java.io.File;
 import java.util.function.IntFunction;
 

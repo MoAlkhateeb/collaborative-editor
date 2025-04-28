@@ -1,3 +1,4 @@
+package com.example.client;
 import java.util.Stack;
 
 public class UndoRedoManager {
