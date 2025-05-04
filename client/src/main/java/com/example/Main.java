@@ -1,4 +1,7 @@
-package com.example.client;
+package com.example;
+
+import com.example.client.SceneManager;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 

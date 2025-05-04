@@ -1,4 +1,6 @@
-package com.example.client;
+package com.example.ui;
+
+import com.example.client.SceneManager;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

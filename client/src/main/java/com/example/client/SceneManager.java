@@ -4,13 +4,21 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.File;
 
+import com.example.network.NetworkManager;
+import com.example.network.NetworkManager.DocumentInfo;
+import com.example.ui.LandingPage;
+
 public class SceneManager {
+
     private Stage stage;
-    private DocumentManager documentManager;
+    private DocumentLoader documentLoader;
+    private NetworkManager networkManager;
 
     public SceneManager(Stage stage) {
         this.stage = stage;
-        this.documentManager = new DocumentManager(this);
+        this.networkManager = new NetworkManager();
+        this.documentLoader = new DocumentLoader(this);
+        networkManager.initialize();
     }
 
     public void showLandingPage() {
@@ -20,18 +28,20 @@ public class SceneManager {
     }
 
     public void showBrowsePage() {
-        File selectedFile = documentManager.openFile();
+        File selectedFile = documentLoader.openFile();
         if (selectedFile != null) {
-            showDocumentPage(selectedFile);
+            DocumentInfo docInfo = networkManager.createDocument();
+            showDocumentPage(docInfo, selectedFile);
         }
     }
 
     public void showNewDocumentPage() {
-        showDocumentPage(null);
+        DocumentInfo docInfo = networkManager.createDocument();
+        showDocumentPage(docInfo, null);
     }
 
-    public void showDocumentPage(File file) {
-        DocumentPage documentPage = new DocumentPage(this, file);
+    public void showDocumentPage(DocumentInfo docInfo, File currentFile) {
+        DocumentPage documentPage = new DocumentPage(this, networkManager, docInfo, currentFile);
         Scene scene = new Scene(documentPage);
         stage.setScene(scene);
     }
@@ -39,8 +49,8 @@ public class SceneManager {
     public void showJoinSession(String sessionCode) {
         if (sessionCode != null && !sessionCode.trim().isEmpty()) {
             System.out.println("Joining session: " + sessionCode);
-            // TODO: Implementation for joining a session
-            showDocumentPage(null);
+            DocumentInfo docInfo = networkManager.joinDocument(sessionCode);
+            showDocumentPage(docInfo, null);
         }
     }
 
