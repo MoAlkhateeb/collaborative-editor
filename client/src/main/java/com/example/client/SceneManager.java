@@ -29,14 +29,25 @@ public class SceneManager {
 
     public void showBrowsePage() {
         File selectedFile = documentLoader.openFile();
-        if (selectedFile != null) {
-            DocumentInfo docInfo = networkManager.createDocument();
-            showDocumentPage(docInfo, selectedFile);
+        if (selectedFile == null) {
+            return;
         }
+
+        DocumentInfo docInfo = networkManager.createDocument();
+        if (docInfo == null) {
+            System.out.println("Failed to create document.");
+            return;
+        }
+        showDocumentPage(docInfo, selectedFile);
     }
 
     public void showNewDocumentPage() {
         DocumentInfo docInfo = networkManager.createDocument();
+        if (docInfo == null) {
+            System.out.println("Failed to create document.");
+            return;
+        }
+
         showDocumentPage(docInfo, null);
     }
 
@@ -47,9 +58,16 @@ public class SceneManager {
     }
 
     public void showJoinSession(String sessionCode) {
+        sessionCode = sessionCode.toUpperCase();
         if (sessionCode != null && !sessionCode.trim().isEmpty()) {
             System.out.println("Joining session: " + sessionCode);
             DocumentInfo docInfo = networkManager.joinDocument(sessionCode);
+
+            if (docInfo == null) {
+                System.out.println("Could not join session.");
+                return;
+            }
+
             showDocumentPage(docInfo, null);
         }
     }

@@ -74,11 +74,13 @@ public class NetworkManager {
 
                 return docInfo;
             } else {
-                throw new RuntimeException("Failed to create document");
+                System.out.println("Failed to create document");
             }
         } catch (Exception e) {
-            throw new RuntimeException("Failed to create document: " + e.getMessage(), e);
+            System.out.println("Failed to create document: " + e.getMessage());
         }
+
+        return null;
     }
 
     public DocumentInfo joinDocument(String code) {
@@ -101,11 +103,13 @@ public class NetworkManager {
 
                 return docInfo;
             } else {
-                throw new RuntimeException("Failed to join document");
+                System.out.println("Failed to join document");
             }
         } catch (Exception e) {
-            throw new RuntimeException("Failed to join document: " + e.getMessage(), e);
+            System.out.println("Failed to join document: " + e.getMessage());
         }
+
+        return null;
     }
 
     public void connectWebSocket() {

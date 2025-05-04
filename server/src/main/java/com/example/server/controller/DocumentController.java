@@ -42,7 +42,14 @@ public class DocumentController {
     public ResponseEntity<Map<String, Object>> accessDocument(
             @RequestParam String userId,
             @RequestParam String accessCode) {
+
         Document document = documentService.findByAccessCode(accessCode);
+
+        if (document == null) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Invalid access code. Document not found.");
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
 
         boolean isEditor = document.getEditorCode().equals(accessCode);
 
@@ -56,4 +63,5 @@ public class DocumentController {
 
         return ResponseEntity.ok(response);
     }
+
 }
