@@ -10,6 +10,8 @@ public class CRDTOperation {
     public char character;
     public int position;
     public String parentNodeId;
+    
+    public CRDTOperation() {}
 
     public CRDTOperation(String userID, String docID, OperationType type, char character, int position, String id,
             String parentNodeId) {
