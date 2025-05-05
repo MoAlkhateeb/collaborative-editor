@@ -10,8 +10,10 @@ public class CRDTOperation {
     public char character;
     public int position;
     public String parentNodeId;
+    public String forID;
 
     public CRDTOperation() {
+        this.forID = null;
     }
 
     @Override
@@ -24,6 +26,7 @@ public class CRDTOperation {
                 ", position=" + position +
                 ", id='" + id + '\'' +
                 ", parentNodeId='" + parentNodeId + '\'' +
+                ", forID='" + forID + '\'' +
                 '}';
     }
 

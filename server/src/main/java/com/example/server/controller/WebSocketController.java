@@ -79,7 +79,9 @@ public class WebSocketController {
             joinNotification.put("linePosition", linePosition);
 
             for (CRDTOperation op : documentService.getOperations(documentId)) {
+                op.forID = userId;
                 messagingTemplate.convertAndSend("/topic/document/" + documentId, op);
+                op.forID = null;
             }
 
             messagingTemplate.convertAndSend("/topic/document/" + documentId + "/users", joinNotification);

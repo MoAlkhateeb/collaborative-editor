@@ -114,7 +114,13 @@ public class DocumentPage extends BorderPane {
 
     private void handleRemoteOperation(CRDTOperation op) {
         Platform.runLater(() -> {
-            if (!op.userID.equals(userId)) {
+            System.out.println("HANDLING REMOTE OPERATION " + op);
+            if (op.forID != null && op.forID.equals(userId)) {
+                crdtManager.applyOperation(op);
+                editorComponent.updateContent(crdtManager.buildText());
+                return;
+            }
+            if (op.forID == null && !op.userID.equals(userId)) {
                 crdtManager.applyOperation(op);
                 editorComponent.updateContent(crdtManager.buildText());
             }
