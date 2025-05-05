@@ -11,6 +11,9 @@ public class CRDTOperation {
     public int position;
     public String parentNodeId;
 
+    CRDTOperation() {
+    }
+
     @Override
     public String toString() {
         return "CRDTOperation{" +
