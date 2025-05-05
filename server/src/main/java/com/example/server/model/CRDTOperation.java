@@ -11,7 +11,7 @@ public class CRDTOperation {
     public int position;
     public String parentNodeId;
 
-    CRDTOperation() {
+    public CRDTOperation() {
     }
 
     @Override
