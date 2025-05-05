@@ -13,6 +13,8 @@ public class Document {
     private Set<String> connectedEditors;
     private Set<String> connectedViewers;
 
+    private List<CRDTOperation> operations;
+
     public Document() {
         this.id = UUID.randomUUID().toString();
         this.createdAt = LocalDateTime.now();
@@ -20,6 +22,11 @@ public class Document {
         this.viewerCode = generateCode("VW");
         this.connectedEditors = new HashSet<>();
         this.connectedViewers = new HashSet<>();
+        this.operations = new LinkedList<>();
+    }
+
+    public void addOperation(CRDTOperation op) {
+        operations.add(op);
     }
 
     private String generateCode(String prefix) {

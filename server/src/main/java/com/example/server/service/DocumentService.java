@@ -1,9 +1,11 @@
 package com.example.server.service;
 
+import com.example.server.model.CRDTOperation;
 import com.example.server.model.Document;
 import com.example.server.repository.DocumentRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,6 +21,14 @@ public class DocumentService {
     @Autowired
     public DocumentService(DocumentRepository documentRepository) {
         this.documentRepository = documentRepository;
+    }
+
+    public void addOperation(CRDTOperation operation, String id) {
+        this.documentRepository.addOperation(operation, id);
+    }
+
+    public List<CRDTOperation> getOperations(String id) {
+        return this.documentRepository.getOperations(id);
     }
 
     public Document createDocument() {

@@ -36,6 +36,8 @@ public class WebSocketController {
             documentService.getDocument(documentId);
 
             System.out.println("RECEIVED OPERATION: " + operation);
+            documentService.addOperation(operation, documentId);
+
             // Broadcast the operation to all clients subscribed to the document
             messagingTemplate.convertAndSend("/topic/document/" + documentId, operation);
         } catch (Exception e) {
@@ -75,6 +77,10 @@ public class WebSocketController {
             joinNotification.put("userId", userId);
             joinNotification.put("isEditor", isEditor);
             joinNotification.put("linePosition", linePosition);
+
+            for (CRDTOperation op : documentService.getOperations(documentId)) {
+                messagingTemplate.convertAndSend("/topic/document/" + documentId, op);
+            }
 
             messagingTemplate.convertAndSend("/topic/document/" + documentId + "/users", joinNotification);
 
